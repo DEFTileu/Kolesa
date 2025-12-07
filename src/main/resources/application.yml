@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: kolesa
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: grants_user
+    password: grants_pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
+jwt:
+  secret: b9c8728e2b2f4884b4c15ea2a661f3fa1b0bbf7e92a046b9a3ad0decb6c09c99
+  jwtExpirationMs: 900000 # 15 min
+  refreshTokenExpirationMs-ms: 604800000
+server:
+  port: 9090
