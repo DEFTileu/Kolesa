@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import kz.javazhan.kolesa.entities.Files;
-import kz.javazhan.kolesa.entities.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -45,6 +43,7 @@ public class Publication {
     private LocalDateTime updatedAt;
     private boolean published;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Files> images = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ElementCollection
+    private List<String> images;
 }

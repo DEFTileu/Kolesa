@@ -1,24 +1,27 @@
 package kz.javazhan.kolesa.services;
+import kz.javazhan.kolesa.entities.DTO.PublicationDTO;
 import kz.javazhan.kolesa.repositories.PublicationRepository;
 import kz.javazhan.kolesa.entities.Publication;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import kz.javazhan.kolesa.entities.Files;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
 @RequiredArgsConstructor
 public class PublicationService {
-    private PublicationRepository publicationRepository;
+    private final PublicationRepository publicationRepository;
 
-    public Publication addImage(Publication publication, Files file) {
-        List<Files> files = publication.getImages();
-        files.add(file);
-        publication.setImages(files);
-        return publicationRepository.save(publication);
+
+    public List<Publication> getAllPublications() {
+        return publicationRepository.findAll();
+    }
+
+    public Publication getPublicationById(UUID publicationId) {
+        return publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new RuntimeException("Publication with id not found "+publicationId));
     }
 }

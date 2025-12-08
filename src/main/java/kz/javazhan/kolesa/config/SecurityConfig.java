@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**","/api/files/upload-to-project").permitAll()
+                        .requestMatchers("/api/auth/**","/api/files/upload-to-project","/api/users").permitAll()
                         .requestMatchers("/uploads/avatars/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // todo если админге кіре алмасақ бір себебі осы "ROLE_ADMIN"
                         .anyRequest().authenticated()
@@ -53,10 +53,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173/","http://localhost:8081","http://localhost:5174","https://todofrontend-y9ud.onrender.com","todofrontend-y9ud.onrender.com","https://1ba290bc1b99.ngrok-free.app/")); // клиентский адрес
+        config.setAllowedOrigins(List.of("http://localhost:3000/","http://localhost:8081","http://localhost:5174","https://todofrontend-y9ud.onrender.com","todofrontend-y9ud.onrender.com","https://1ba290bc1b99.ngrok-free.app/")); // клиентский адрес
         config.setAllowedMethods(List.of("GET", "POST","PATCH", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // если используешь cookie
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

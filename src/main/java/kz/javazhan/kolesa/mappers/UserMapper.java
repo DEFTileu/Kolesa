@@ -8,5 +8,8 @@ import kz.javazhan.kolesa.entities.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     User toUser(RegisterRequest request);
+
+
+
     UserDTO toUserDTO(User user);
 }

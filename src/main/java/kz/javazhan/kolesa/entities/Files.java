@@ -15,6 +15,7 @@ import java.util.UUID;
 @Setter
 @Table(name = "files")
 @EntityListeners(AuditingEntityListener.class)
+@Deprecated
 public class Files {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

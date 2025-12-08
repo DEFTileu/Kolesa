@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ты лох</title>
+    <style>
+        /* Основные стили страницы */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff7dbf, #ff6ac1);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            animation: backgroundMove 10s ease-in-out infinite;
+        }
+
+        /* Плавное изменение фона */
+        @keyframes backgroundMove {
+            0% { background: linear-gradient(135deg, #ff7dbf, #ff6ac1); }
+            50% { background: linear-gradient(135deg, #ff6ac1, #ff7dbf); }
+            100% { background: linear-gradient(135deg, #ff7dbf, #ff6ac1); }
+        }
+
+        /* Стили для блока с основным текстом */
+        .text-container {
+            position: relative;
+            font-size: 4rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            z-index: 10;
+            animation: pulse 2s infinite alternate;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+        }
+
+        /* Пульсация текста */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                color: white;
+            }
+            100% {
+                transform: scale(1.2);
+                color: #ff4757;
+            }
+        }
+
+        /* Блок с дополнительным текстом */
+        .background-block {
+            position: absolute;
+            top: 40%; /* Подвинул текст вниз */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            z-index: -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: normal;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Анимации для сердечек */
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff4757;
+            clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+            animation: heartBeat 1.5s infinite alternate;
+            opacity: 0.7;
+            z-index: 5;
+        }
+
+        /* Анимация сердечек */
+        @keyframes heartBeat {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 1;
+            }
+        }
+
+        /* Местоположение для сердечек */
+        .heart1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .heart2 { top: 5%; left: 80%; animation-delay: 0.5s; }
+        .heart3 { top: 30%; left: 15%; animation-delay: 1s; }
+        .heart4 { top: 70%; left: 80%; animation-delay: 1.5s; }
+        .heart5 { top: 25%; left: 55%; animation-delay: 2s; }
+
+        /* Цветы в углах */
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff90a6;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .flower1 { top: 10%; left: 10%; }
+        .flower2 { top: 10%; right: 10%; }
+        .flower3 { bottom: 10%; left: 10%; }
+        .flower4 { bottom: 10%; right: 10%; }
+
+        /* Частицы */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ff90a6;
+            opacity: 0.8;
+            animation: moveParticles 5s infinite ease-in-out;
+        }
+
+        @keyframes moveParticles {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px) translateX(300px);
+                opacity: 0;
+            }
+        }
+
+        /* Разные задержки для частиц */
+        .particle:nth-child(1) { top: 60%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 40%; left: 50%; animation-delay: 1s; }
+        .particle:nth-child(3) { top: 50%; left: 80%; animation-delay: 2s; }
+        .particle:nth-child(4) { top: 30%; left: 30%; animation-delay: 1.5s; }
+        .particle:nth-child(5) { top: 80%; left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(6) { top: 20%; left: 60%; animation-delay: 2.5s; }
+
+    </style>
+</head>
+<body>
+
+<!-- Контейнер с текстом -->
+<div class="text-container">
+    Ты лох
+</div>
+
+<!-- Блок с дополнительным текстом -->
+<div class="background-block">
+    Ничего личного, просто ты
+</div>
+
+<!-- Сердечки -->
+<div class="heart heart1"></div>
+<div class="heart heart2"></div>
+<div class="heart heart3"></div>
+<div class="heart heart4"></div>
+<div class="heart heart5"></div>
+
+<!-- Цветы в углах -->
+<div class="flower flower1"></div>
+<div class="flower flower2"></div>
+<div class="flower flower3"></div>
+<div class="flower flower4"></div>
+
+<!-- Частицы -->
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+
+</body>
+</html>
