@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +33,7 @@ public class Publication {
 
     @ManyToOne()
     @JoinColumn(name = "author_id")
-    private User author;
+    private Seller author;
 
     @CreatedDate
     private LocalDateTime createdAt;

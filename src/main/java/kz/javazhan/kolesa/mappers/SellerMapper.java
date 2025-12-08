@@ -9,4 +9,5 @@ public interface SellerMapper {
     SellerDTO toSellerDTO(Seller seller);
 
     Seller toSeller(SellerDTO sellerDTO);
+
 }

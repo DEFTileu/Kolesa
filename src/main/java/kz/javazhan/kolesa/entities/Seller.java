@@ -31,7 +31,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -75,6 +74,18 @@ public class Seller {
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Publication> publications = new ArrayList<>();
+
+    public Publication createPublication(String title, String description, String content){
+        Publication publication = new Publication();
+        publication.setTitle(title);
+        publication.setDescription(description);
+        publication.setContent(content);
+        publication.setAuthor(this);
+
+        this.publications.add(publication);
+
+        return publication;
+    }
 
     @Override
     public boolean equals(Object o) {
