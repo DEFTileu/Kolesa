@@ -12,7 +12,7 @@ public class PublicationDTO {
     private String title;
     private String description;
     private String Content;
-    private UserDTO author;
+    private SellerDTO author;
     private List<String> images;
     private boolean published;
     private LocalDateTime updatedAt;

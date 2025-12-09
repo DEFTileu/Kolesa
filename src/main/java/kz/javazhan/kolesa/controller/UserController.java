@@ -41,10 +41,10 @@ class UserController {
 
 
     @PostMapping("/to-sell")
-    public AuthResponse request2sell() throws Exception {
+    public boolean request2sell() throws Exception {
         User user = userService.getCurrentUser();
         Seller seller =  sellerService.createSeller(user);
-        authService.
+        return true;
     }
 
 }

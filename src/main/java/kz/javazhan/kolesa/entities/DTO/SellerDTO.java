@@ -9,10 +9,6 @@ import java.util.UUID;
 @Data
 public class SellerDTO {
     private UUID id;
-    private String username;
-    private String firstName;
-    private String lastName;
-    private UserRole role;
-    private LocalDateTime updatedAt;
+    private UserDTO user;
     private LocalDateTime createdAt;
 }
