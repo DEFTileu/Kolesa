@@ -1,8 +1,10 @@
 package kz.javazhan.kolesa.controller;
 
+import kz.javazhan.kolesa.entities.DTO.PublicationEntityDTO;
 import kz.javazhan.kolesa.entities.Publication;
-import kz.javazhan.kolesa.mappers.PublicationMapper;
-import kz.javazhan.kolesa.services.PublicationService;
+import kz.javazhan.kolesa.entities.PublicationEntity;
+import kz.javazhan.kolesa.mappers.PublicationEntityMapper;
+import kz.javazhan.kolesa.services.PublicationEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +19,20 @@ import kz.javazhan.kolesa.entities.DTO.PublicationDTO;
 @RequestMapping("/api/publications")
 @RequiredArgsConstructor
 class PublicationController {
-    private final PublicationService publicationService;
-    private final PublicationMapper publicationMapper;
+    private final PublicationEntityService publicationService;
+    private final PublicationEntityMapper publicationMapper;
 
     @GetMapping()
-    public List<PublicationDTO> getAllPublications(){
+    public List<PublicationEntityDTO> getAllPublications(){
         return publicationService.getAllPublications().stream()
-                .map(publicationMapper::toPublicationDTO)
+                .map(publicationMapper::toPublicationEntityDTO)
                 .toList();
     }
 
     @GetMapping("/{publicationId}")
-    public PublicationDTO getPublication(@PathVariable UUID publicationId){
-        Publication publication = publicationService.getPublicationById(publicationId);
-        return publicationMapper.toPublicationDTO(publication);
+    public PublicationEntityDTO getPublication(@PathVariable UUID publicationId){
+        PublicationEntity publication = publicationService.getPublicationById(publicationId);
+        return publicationMapper.toPublicationEntityDTO(publication);
     }
 
 }

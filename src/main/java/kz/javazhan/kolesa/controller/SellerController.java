@@ -6,10 +6,9 @@ import kz.javazhan.kolesa.entities.DTO.SellerDTO;
 import kz.javazhan.kolesa.entities.Publication;
 import kz.javazhan.kolesa.entities.Seller;
 import kz.javazhan.kolesa.entities.User;
-import kz.javazhan.kolesa.mappers.PublicationMapper;
+import kz.javazhan.kolesa.mappers.PublicationEntityMapper;
 import kz.javazhan.kolesa.mappers.SellerMapper;
-import kz.javazhan.kolesa.services.PublicationService;
-import kz.javazhan.kolesa.services.SellerService;
+import kz.javazhan.kolesa.services.PublicationEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,8 +25,8 @@ import java.util.List;
 public class SellerController {
     private final SellerService sellerService;
     private final SellerMapper sellerMapper;
-    private final PublicationMapper publicationMapper;
-    private final PublicationService publicationService;
+    private final PublicationEntityMapper publicationMapper;
+    private final PublicationEntityService publicationService;
 
     @GetMapping
     public List<PublicationDTO> getAllPublications() {

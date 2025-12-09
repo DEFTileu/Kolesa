@@ -49,19 +49,23 @@ public class Seller {
 
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
-    private List<Publication> publications = new ArrayList<>();
+    private List<PublicationEntity> publications = new ArrayList<>();
 
-    public Publication createPublication(String title, String description, String content, List<String> images){
-        Publication publication = new Publication();
+    public PublicationEntity createPublication(String title, String description, String content, List<String> images, String authorNotes){
+        PublicationEntity publication = new PublicationEntity();
         publication.setTitle(title);
         publication.setDescription(description);
         publication.setContent(content);
-        publication.setImages(images);
         publication.setAuthor(this);
+        publication.setImages(images);
 
-        this.publications.add(publication);
+        publication = new AuthorNotesPublicationDecorator(publication, authorNotes);
+
+        publications.add(publication);
 
         return publication;
+
+
     }
 
     @Override
