@@ -22,11 +22,7 @@ public class SellerService {
         return sellerRepository.findSellerByUsername(user.getUsername())
                 .orElseGet(() -> {
                     Seller seller = Seller.builder()
-                            .username(user.getUsername())
-                            .firstName(user.getFirstName())
-                            .lastName(user.getLastName())
-                            .password(user.getPassword())
-                            .role(user.getRole())
+                            .user(user)
                             .build();
                     return sellerRepository.save(seller);
                 });
@@ -38,7 +34,8 @@ public class SellerService {
         Publication publication = seller.createPublication(
                 dto.getTitle(),
                 dto.getDescription(),
-                dto.getContent());
+                dto.getContent(),
+                dto.getImages());
 
         return publicationRepository.save(publication);
     }
