@@ -18,25 +18,27 @@ public class SellerService {
     private final UserService userService;
     private final PublicationRepository publicationRepository;
 
-//    public Seller getOrCreateSeller(User user){
-//        return sellerRepository.findSellerByUsername(user.getUsername())
-//                .orElseGet(() -> {
-//                    Seller seller = Seller.builder
-//                            .build();
-//                    return sellerRepository.save(seller);
-//                });
-//    }
+    public Seller getOrCreateSeller(User user){
+        return sellerRepository.findSellerByUsername(user.getUsername())
+                .orElseGet(() -> {
+                    Seller seller = Seller.builder()
+                            .user(user)
+                            .build();
+                    return sellerRepository.save(seller);
+                });
+    }
 
-//    public Publication createPublication(User user, PublicationDTO dto) {
-//        Seller seller = getOrCreateSeller(user);
-//
-//        Publication publication = seller.createPublication(
-//                dto.getTitle(),
-//                dto.getDescription(),
-//                dto.getContent());
-//
-//        return publicationRepository.save(publication);
-//    }
+    public Publication createPublication(User user, PublicationDTO dto) {
+        Seller seller = getOrCreateSeller(user);
+
+        Publication publication = seller.createPublication(
+                dto.getTitle(),
+                dto.getDescription(),
+                dto.getContent(),
+                dto.getImages());
+
+        return publicationRepository.save(publication);
+    }
 
     public List<Seller> getAllSellers() {
         return sellerRepository.findAll();
