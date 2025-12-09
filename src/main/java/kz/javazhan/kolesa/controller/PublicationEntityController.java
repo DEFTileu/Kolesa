@@ -1,7 +1,6 @@
 package kz.javazhan.kolesa.controller;
 
 import kz.javazhan.kolesa.entities.DTO.PublicationEntityDTO;
-import kz.javazhan.kolesa.entities.Publication;
 import kz.javazhan.kolesa.entities.PublicationEntity;
 import kz.javazhan.kolesa.mappers.PublicationEntityMapper;
 import kz.javazhan.kolesa.services.PublicationEntityService;
@@ -11,14 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-
-
-import kz.javazhan.kolesa.entities.DTO.PublicationDTO;
-
 @RestController
 @RequestMapping("/api/publications")
 @RequiredArgsConstructor
-class PublicationController {
+class PublicationEntityController {
     private final PublicationEntityService publicationService;
     private final PublicationEntityMapper publicationMapper;
 

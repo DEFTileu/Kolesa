@@ -48,24 +48,26 @@ public class Seller {
     private LocalDateTime createdAt;
 
 
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sellers", cascade = CascadeType.ALL)
     private List<PublicationEntity> publications = new ArrayList<>();
 
-    public PublicationEntity createPublication(String title, String description, String content, List<String> images, String authorNotes){
-        PublicationEntity publication = new PublicationEntity();
-        publication.setTitle(title);
-        publication.setDescription(description);
-        publication.setContent(content);
-        publication.setAuthor(this);
-        publication.setImages(images);
+    public PublicationI createPublication(String title, String description, String content, List<String> images, String authorNotes){
+        PublicationI publication = PublicationEntity.builder()
+                .title(title)
+                .description(description)
+                .content(content)
+                .images(images)
+                .author(this)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+
 
         publication = new AuthorNotesPublicationDecorator(publication, authorNotes);
 
-        publications.add(publication);
+        publications.add((PublicationEntity) publication);
 
         return publication;
-
-
     }
 
     @Override
