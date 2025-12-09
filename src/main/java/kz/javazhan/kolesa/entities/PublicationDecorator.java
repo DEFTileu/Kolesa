@@ -1,13 +1,11 @@
 package kz.javazhan.kolesa.entities;
 
 
-import java.time.LocalDateTime;
-
 public class PublicationDecorator implements PublicationI{
-    PublicationI publication;
+    PublicationEntity publication;
 
 
-    public PublicationDecorator(PublicationI decoratedPublication){
+    public PublicationDecorator(PublicationEntity decoratedPublication){
         this.publication = decoratedPublication;
     }
     @Override
@@ -24,11 +22,5 @@ public class PublicationDecorator implements PublicationI{
     public String getContent(){
         return publication.getContent();
     }
-
-    @Override
-    public LocalDateTime getCreatedAt() {
-        return publication.getCreatedAt();
-    }
-
 
 }

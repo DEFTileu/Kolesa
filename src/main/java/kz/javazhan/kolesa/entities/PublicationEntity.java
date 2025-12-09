@@ -1,39 +1,34 @@
 package kz.javazhan.kolesa.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "publications")
-@Data
-@Builder
+@Table(name = "publications")  // Specify the table name in the database
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PublicationEntity implements PublicationI {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = true)
     private String description;
 
     @Column(name = "content", nullable = false)
@@ -46,26 +41,20 @@ public class PublicationEntity implements PublicationI {
     @JoinColumn(name = "author_id", nullable = false)
     private Seller author;
 
+
     @ElementCollection
     private List<String> images;
 
-    @Override
-    public String getTitle() {
-        return title;
-    }
 
     @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public String getContent() {
-        return content;
-    }
-
-    @Override
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public String toString() {
+        return "PublicationEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                ", author=" + author +
+                '}';
     }
 }
