@@ -1,6 +1,8 @@
 package kz.javazhan.kolesa.controller;
 
 import kz.javazhan.kolesa.entities.DTO.UserDTO;
+import kz.javazhan.kolesa.entities.DTO.responses.AuthResponse;
+import kz.javazhan.kolesa.entities.Seller;
 import kz.javazhan.kolesa.entities.User;
 import kz.javazhan.kolesa.mappers.UserMapper;
 import kz.javazhan.kolesa.services.AuthService;
@@ -39,9 +41,10 @@ class UserController {
 
 
     @PostMapping("/to-sell")
-    public boolean request2sell() throws Exception {
+    public AuthResponse request2sell() throws Exception {
         User user = userService.getCurrentUser();
-        return sellerService.createSeller(user);
+        Seller seller =  sellerService.createSeller(user);
+        authService.
     }
 
 }
