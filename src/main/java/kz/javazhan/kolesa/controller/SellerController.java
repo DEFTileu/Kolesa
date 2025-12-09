@@ -37,15 +37,15 @@ public class SellerController {
                 .toList();
     }
 
-    @GetMapping("/info")
-    public SellerDTO getSellerInfo(@AuthenticationPrincipal User user){
-        Seller seller = sellerService.getOrCreateSeller(user);
-        return sellerMapper.toSellerDTO(seller);
-    }
-
-    @PostMapping
-    public PublicationDTO createPublication(@AuthenticationPrincipal User user, @RequestBody PublicationDTO dto){
-        Publication publication = sellerService.createPublication(user, dto);
-        return publicationMapper.toPublicationDTO(publication);
-    }
+//    @GetMapping("/info")
+//    public SellerDTO getSellerInfo(@AuthenticationPrincipal User user){
+//        Seller seller = sellerService.getOrCreateSeller(user);
+//        return sellerMapper.toSellerDTO(seller);
+//    }
+//
+//    @PostMapping
+//    public PublicationDTO createPublication(@AuthenticationPrincipal User user, @RequestBody PublicationDTO dto){
+//        Publication publication = sellerService.createPublication(user, dto);
+//        return publicationMapper.toPublicationDTO(publication);
+//    }
 }

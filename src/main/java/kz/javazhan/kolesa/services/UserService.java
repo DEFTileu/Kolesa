@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
 
         String email = authentication.getName();
         return userRepository.findUserByUsername(email)
-                .orElseThrow(() -> new RuntimeException("User not found by email "+ email));
+                .orElseThrow(() -> new RuntimeException("User not found by email " + email));
 
     }
 }
