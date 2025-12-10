@@ -1,15 +1,6 @@
 package kz.javazhan.kolesa.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,21 +25,20 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Builder
 @Table(name = "sellers")
 @EntityListeners(AuditingEntityListener.class)
-@Deprecated
 public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @OneToOne
-    @Column(name = "user", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @CreatedDate
     private LocalDateTime createdAt;
 
 
-    @OneToMany(mappedBy = "sellers", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<PublicationEntity> publications = new ArrayList<>();
     //decorator pattern
     public PublicationI createPublication(String title, String description, String content, List<String> images, String authorNotes){

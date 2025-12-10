@@ -2,6 +2,7 @@ package kz.javazhan.kolesa.controller;
 
 import kz.javazhan.kolesa.entities.DTO.UserDTO;
 import kz.javazhan.kolesa.entities.DTO.requests.AuthRequest;
+import kz.javazhan.kolesa.entities.DTO.requests.RefreshTokenRequest;
 import kz.javazhan.kolesa.entities.DTO.requests.RegisterRequest;
 import kz.javazhan.kolesa.entities.DTO.responses.AuthResponse;
 import kz.javazhan.kolesa.mappers.UserMapper;
@@ -34,7 +35,8 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public AuthResponse refreshToken(@RequestBody String refreshToken){
-        return authService.refresh(refreshToken);
+    public AuthResponse refreshToken(@RequestBody RefreshTokenRequest refreshToken){
+        String refreshTokenStr = refreshToken.getRefreshToken();
+        return authService.refresh(refreshTokenStr);
     }
 }

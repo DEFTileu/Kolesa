@@ -4,9 +4,9 @@ spring:
 
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: grants_user
-    password: grants_pass
+    url: jdbc:postgresql://postgre-1.czwi8mg0sdzw.eu-north-1.rds.amazonaws.com:5432/kolesa_db
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:grants_pass}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -18,7 +18,7 @@ spring:
 
 
 jwt:
-  secret: b9c8728e2b2f4884b4c15ea2a661f3fa1b0bbf7e92a046b9a3ad0decb6c09c99
+  secret: ${JWT_SECRET:b9c8728e2b2f4884b4c15ea2a661f3fa1b0bbf7e92a046b9a3ad0decb6c09c99}
   jwtExpirationMs: 900000 # 15 min
   refreshTokenExpirationMs-ms: 604800000
 server:

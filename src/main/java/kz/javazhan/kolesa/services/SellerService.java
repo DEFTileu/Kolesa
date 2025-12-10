@@ -67,8 +67,12 @@ public class SellerService {
         }
 
     public Seller createSeller(User user) {
-        Seller seller = sellerRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Seller not found!"));
-
+        Seller seller = sellerRepository.findByUser(user).orElse(
+                null
+        );
+        if (seller != null){
+            throw new RuntimeException("Your already seller");
+        }
         seller = Seller.builder()
                 .user(user)
                 .build();

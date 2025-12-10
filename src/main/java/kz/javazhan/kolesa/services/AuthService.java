@@ -9,6 +9,7 @@ import kz.javazhan.kolesa.mappers.UserMapper;
 import kz.javazhan.kolesa.repositories.UserRepository;
 import kz.javazhan.kolesa.utils.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.security.sasl.AuthenticationException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -87,6 +89,7 @@ public class AuthService {
 
     public AuthResponse refresh(String refreshToken) {
         String email = jwtUtils.extractEmail(refreshToken);
+        log.info(email);
         User user = userService.findByUsername(email).orElseThrow(
                 () ->  new UsernameNotFoundException("User not found by email"+ email));
         if(!jwtUtils.isTokenValid(refreshToken,email)){

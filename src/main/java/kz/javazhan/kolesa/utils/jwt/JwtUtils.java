@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
+@Slf4j
 @Component
 public class JwtUtils {
     @Value("${jwt.secret}")
@@ -42,12 +44,14 @@ public class JwtUtils {
     }
 
     public String extractEmail(String token) {
+        log.info(extractClaim(token, Claims::getSubject));
         return extractClaim(token, Claims::getSubject);
     }
 
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
+        log.info(extractAllClaims(token).toString());
         return claimsResolver.apply(claims);
     }
 
