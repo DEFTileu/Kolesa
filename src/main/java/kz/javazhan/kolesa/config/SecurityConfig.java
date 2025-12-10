@@ -53,7 +53,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000/","http://localhost:8081","http://localhost:5174","https://todofrontend-y9ud.onrender.com","todofrontend-y9ud.onrender.com","https://1ba290bc1b99.ngrok-free.app/")); // клиентский адрес
+        config.setAllowedOrigins(List.of("https://kolesa.javazhan.tech","http://localhost:8081","http://localhost:5174")); // клиентский адрес
         config.setAllowedMethods(List.of("GET", "POST","PATCH", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
