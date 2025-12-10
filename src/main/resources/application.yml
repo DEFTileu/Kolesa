@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:postgresql://postgre-1.czwi8mg0sdzw.eu-north-1.rds.amazonaws.com:5432/kolesa_db
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:grants_pass}
+    password: ${SPRING_DATASOURCE_PASSWORD:TileuzhanAmazon12!}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -22,5 +22,5 @@ jwt:
   jwtExpirationMs: 900000 # 15 min
   refreshTokenExpirationMs-ms: 604800000
 server:
-  port: 9090
+  port: ${PORT:9090}
   address: 0.0.0.0
