@@ -1,14 +1,13 @@
 package kz.javazhan.kolesa.controller;
 
 
-import kz.javazhan.kolesa.entities.DTO.PublicationDTO;
+import kz.javazhan.kolesa.entities.DTO.PublicationEntityDTO;
 import kz.javazhan.kolesa.entities.DTO.SellerDTO;
-import kz.javazhan.kolesa.entities.Publication;
+import kz.javazhan.kolesa.entities.PublicationEntity;
 import kz.javazhan.kolesa.entities.Seller;
 import kz.javazhan.kolesa.entities.User;
-import kz.javazhan.kolesa.mappers.PublicationMapper;
-import kz.javazhan.kolesa.mappers.SellerMapper;
-import kz.javazhan.kolesa.services.PublicationService;
+import kz.javazhan.kolesa.mappers.PublicationEntityMapper;
+import kz.javazhan.kolesa.services.PublicationEntityService;
 import kz.javazhan.kolesa.services.SellerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,28 +23,28 @@ import java.util.List;
 @RequestMapping("/api/seller")
 @RequiredArgsConstructor
 public class SellerController {
+    private final PublicationEntityMapper publicationMapper;
+    private final PublicationEntityService publicationService;
     private final SellerService sellerService;
-    private final SellerMapper sellerMapper;
-    private final PublicationMapper publicationMapper;
-    private final PublicationService publicationService;
 
     @GetMapping
-    public List<PublicationDTO> getAllPublications() {
+    public List<PublicationEntityDTO> getAllPublications() {
         return publicationService.getAllPublications()
                 .stream()
-                .map(publicationMapper::toPublicationDTO)
+                .map(publicationMapper::toPublicationEntityDTO)
                 .toList();
     }
 
 //    @GetMapping("/info")
 //    public SellerDTO getSellerInfo(@AuthenticationPrincipal User user){
-//        Seller seller = sellerService.getOrCreateSeller(user);
+//        Seller seller = sellerService.createSeller(user);
 //        return sellerMapper.toSellerDTO(seller);
 //    }
-//
-//    @PostMapping
-//    public PublicationDTO createPublication(@AuthenticationPrincipal User user, @RequestBody PublicationDTO dto){
-//        Publication publication = sellerService.createPublication(user, dto);
-//        return publicationMapper.toPublicationDTO(publication);
-//    }
+
+    //decorator pattern
+    @PostMapping
+    public PublicationEntityDTO createPublication(@AuthenticationPrincipal User user, @RequestBody PublicationEntityDTO dto){
+        PublicationEntity publication = sellerService.createPublication(user, dto);
+        return publicationMapper.toPublicationEntityDTO(publication);
+    }
 }

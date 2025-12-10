@@ -3,11 +3,11 @@ package kz.javazhan.kolesa.entities.DTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 import java.util.List;
+import java.util.UUID;
 
 @Data
-public class PublicationDTO {
+public class PublicationEntityDTO {
     private UUID id;
     private String title;
     private String description;
@@ -17,4 +17,5 @@ public class PublicationDTO {
     private boolean published;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
+    private String authorNotes;
 }
