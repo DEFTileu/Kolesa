@@ -8,6 +8,7 @@ import kz.javazhan.kolesa.mappers.PublicationEntityMapper;
 import kz.javazhan.kolesa.services.PublicationEntityService;
 import kz.javazhan.kolesa.services.SellerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +24,22 @@ class PublicationEntityController {
     private final PublicationEntityMapper publicationMapper;
     private final SellerService sellerService;
 
-    @GetMapping()
+
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<PublicationEntityDTO> getAllPublications(){
         return publicationService.getAllPublications().stream()
                 .map(publicationMapper::toPublicationEntityDTO)
                 .toList();
     }
+
+    @GetMapping("")
+    public List<PublicationEntityDTO> getPublishPublications(){
+        return publicationService.getPublishedPublications().stream()
+                .map(publicationMapper::toPublicationEntityDTO)
+                .toList();
+    }
+
     @GetMapping("/my")
     public List<PublicationEntityDTO> getPublications(@AuthenticationPrincipal User user){
         return publicationService.getPublicationsByUser(user).stream()

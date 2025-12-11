@@ -6,10 +6,12 @@ import kz.javazhan.kolesa.entities.User;
 
 import kz.javazhan.kolesa.mappers.PublicationEntityMapper;
 import kz.javazhan.kolesa.repositories.PublicationEntityRepository;
+import kz.javazhan.kolesa.state.PublicationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import kz.javazhan.kolesa.repositories.SellerRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,13 +25,18 @@ public class PublicationEntityService {
     private final UserService userService;
 
 
+    public List<PublicationEntity> getPublishedPublications() {
+        return publicationEntityRepository.findAllByStatus(PublicationStatus.PUBLISHED);
+    }
+
+
     public List<PublicationEntity> getAllPublications() {
         return publicationEntityRepository.findAll();
     }
-
 //    public PublicationEntityDTO getPublicationByUser(User user) {
 //        Seller seller = sellerRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Seller not found"));
 //        PublicationEntity publication =  publicationEntityRepository.findByAuthor(seller);
+
 //        return publicationMapper.toPublicationEntityDTO(publication);
 //    }
 
