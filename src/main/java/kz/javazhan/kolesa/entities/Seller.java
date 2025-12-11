@@ -22,7 +22,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "sellers")
 @EntityListeners(AuditingEntityListener.class)
 public class Seller {
@@ -72,4 +71,37 @@ public class Seller {
     public int hashCode() {
         return Objects.hash(id, createdAt);
     }
+
+
+    public static SellerBuilder builder() {
+        return new SellerBuilder();
+    }
+
+    public static class SellerBuilder {
+        private UUID id;
+        private User user;
+        private LocalDateTime createdAt;
+        private List<PublicationEntity> publications;
+        public SellerBuilder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+        public SellerBuilder user(User user) {
+            this.user = user;
+            return this;
+        }
+        public SellerBuilder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+        public SellerBuilder publications(List<PublicationEntity> publications) {
+            this.publications = publications;
+            return this;
+        }
+        public Seller build() {
+            return new Seller(id, user, createdAt, publications);
+        }
+    }
+
+
 }

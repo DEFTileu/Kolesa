@@ -8,11 +8,30 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ErrorResponse {
 
     private boolean success;
 
     private String message;
-    // getters & setters
+
+    public static ErrorResponseBuilder builder(){
+        return new ErrorResponseBuilder();
+    }
+    public static class ErrorResponseBuilder{
+        private boolean success;
+        private String message;
+
+        public ErrorResponseBuilder success(boolean success){
+            this.success = success;
+            return this;
+        }
+        public ErrorResponseBuilder message(String message){
+            this.message = message;
+            return this;
+        }
+        public ErrorResponse build(){
+            return new ErrorResponse(success, message);
+        }
+    }
+
 }

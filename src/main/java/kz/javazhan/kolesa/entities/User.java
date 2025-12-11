@@ -22,7 +22,6 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
@@ -71,4 +70,67 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hash(getId(), getUsername(), getAvatarUrl(), getFirstName(), getLastName(), getRole(), getPassword(), getCreatedAt(), getUpdatedAt());
     }
+
+    public static UserBuilder builder(){
+        return new UserBuilder();
+    }
+
+
+    public static class UserBuilder{
+        private UUID id;
+        private String username;
+        private String avatarUrl;
+        private String firstName;
+        private String lastName;
+        private UserRole role;
+        private String password;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+
+
+        UserBuilder(){}
+
+        public UserBuilder id(UUID id) {
+            this.id = id;
+            return UserBuilder.this;
+        }
+        public UserBuilder username(String username) {
+            this.username = username;
+            return UserBuilder.this;
+        }
+        public UserBuilder avatarUrl(String avatarUrl) {
+            this.avatarUrl = avatarUrl;
+            return UserBuilder.this;
+        }
+        public UserBuilder firstName(String firstName) {
+            this.firstName = firstName;
+            return UserBuilder.this;
+        }
+        public UserBuilder lastName(String lastName) {
+            this.lastName = lastName;
+            return UserBuilder.this;
+        }
+        public UserBuilder role(UserRole role) {
+            this.role = role;
+            return UserBuilder.this;
+        }
+        public UserBuilder password(String password) {
+            this.password = password;
+            return UserBuilder.this;
+        }
+        public UserBuilder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return UserBuilder.this;
+        }
+        public UserBuilder updatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+            return UserBuilder.this;
+        }
+        public User build() {
+            return new User(id, username, avatarUrl, firstName, lastName, role, password, createdAt, updatedAt);
+        }
+
+    }
+
+
 }
