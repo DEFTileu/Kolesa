@@ -12,7 +12,7 @@ public class PublicationEntityDTO {
     private UUID id;
     private String title;
     private String description;
-    private String Content;
+    private String content;
     private SellerDTO author;
     private List<String> images;
     private PublicationStatus status;
