@@ -44,13 +44,17 @@ public class AuthService {
 //            user.setPassword(passwordEncoder.encode(user.getPassword()));
 //            userService.save(user);
         }
-        User user = User.builder()
-                .username(request.getUsername())
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(UserRole.ROLE_USER)
-                .build();
+        //Singleton pattern
+        User user = User.getInstance();
+
+        user = User.builder()
+                    .username(request.getUsername())
+                    .firstName(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .role(UserRole.ROLE_USER)
+                    .build();
+
 
 
         user = userService.save(user);
@@ -120,8 +124,7 @@ public class AuthService {
 
     }
 
-    // пустой
-    //ali pustoi ma
+
 
 
 }

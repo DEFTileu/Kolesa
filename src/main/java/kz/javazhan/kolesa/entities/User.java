@@ -30,6 +30,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "instance_id")
+    private static User instance;
+
     @Column(nullable = false,unique = true)
     private String username;
 
@@ -51,6 +54,14 @@ public class User implements UserDetails {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    public static User getInstance(){
+        if(instance == null){
+            instance = new User();
+        }
+        return instance;
+    }
+
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
