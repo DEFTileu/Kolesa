@@ -76,4 +76,32 @@ class PublicationEntityController {
                 .toList();
     }
 
+    @PutMapping("/{publicationId}/publish")
+    public PublicationEntityDTO publishPublication(@PathVariable UUID publicationId) {
+        return publicationMapper.toPublicationEntityDTO(
+            publicationService.publishPublication(publicationId)
+        );
+    }
+
+    @PutMapping("/{publicationId}/review")
+    public PublicationEntityDTO sendToReview(@PathVariable UUID publicationId) {
+        return publicationMapper.toPublicationEntityDTO(
+            publicationService.sendToReview(publicationId)
+        );
+    }
+
+    @PutMapping("/{publicationId}/archive")
+    public PublicationEntityDTO archivePublication(@PathVariable UUID publicationId) {
+        return publicationMapper.toPublicationEntityDTO(
+            publicationService.archivePublication(publicationId)
+        );
+    }
+
+    @PutMapping("/{publicationId}/reject")
+    public PublicationEntityDTO rejectPublication(@PathVariable UUID publicationId) {
+        return publicationMapper.toPublicationEntityDTO(
+            publicationService.rejectPublication(publicationId)
+        );
+    }
+
 }

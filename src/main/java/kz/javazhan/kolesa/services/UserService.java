@@ -47,16 +47,19 @@ public class UserService implements UserDetailsService {
         return userRepository.save(currUser);
     }
 
-    public User getCurrentUser() throws Exception{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public User getCurrentUser() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null || !authentication.isAuthenticated()){
-            throw new AuthenticationException("User not authenticated");
+            if (authentication == null || !authentication.isAuthenticated()) {
+                throw new AuthenticationException("User not authenticated");
+            }
+
+            String email = authentication.getName();
+            return userRepository.findUserByUsername(email)
+                    .orElseThrow(() -> new RuntimeException("User not found by email " + email));
+        }catch (Exception e){
+            throw new RuntimeException("Error retrieving current user: " + e.getMessage());
         }
-
-        String email = authentication.getName();
-        return userRepository.findUserByUsername(email)
-                .orElseThrow(() -> new RuntimeException("User not found by email " + email));
-
     }
 }

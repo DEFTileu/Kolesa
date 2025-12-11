@@ -62,4 +62,56 @@ public class PublicationEntityService {
         return publicationEntityRepository.findById(publicationId)
                 .orElseThrow(() -> new RuntimeException("Publication with id not found "+publicationId));
     }
+
+    public PublicationEntity publishPublication(UUID publicationId) {
+        User user = userService.getCurrentUser();
+        Seller seller = sellerRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Seller not Found"));
+        PublicationEntity publication = publicationEntityRepository.findById(publicationId)
+                .orElseThrow(() -> new RuntimeException("Publication doesn't exist"));
+
+        if (!publication.getAuthor().getId().equals(seller.getId())) {
+            throw new RuntimeException("It's not your publication! You can't publish it");
+        }
+
+        publication.publish();
+        return publicationEntityRepository.save(publication);
+    }
+
+    public PublicationEntity sendToReview(UUID publicationId) {
+        User user = userService.getCurrentUser();
+        Seller seller = sellerRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Seller not Found"));
+        PublicationEntity publication = publicationEntityRepository.findById(publicationId)
+                .orElseThrow(() -> new RuntimeException("Publication doesn't exist"));
+
+        if (!publication.getAuthor().getId().equals(seller.getId())) {
+            throw new RuntimeException("It's not your publication! You can't send it to review");
+        }
+
+        publication.sendToReview();
+        return publicationEntityRepository.save(publication);
+    }
+
+    public PublicationEntity archivePublication(UUID publicationId) {
+        User user = userService.getCurrentUser();
+        Seller seller = sellerRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Seller not Found"));
+        PublicationEntity publication = publicationEntityRepository.findById(publicationId)
+                .orElseThrow(() -> new RuntimeException("Publication doesn't exist"));
+
+        if (!publication.getAuthor().getId().equals(seller.getId())) {
+            throw new RuntimeException("It's not your publication! You can't archive it");
+        }
+
+        publication.archive();
+        return publicationEntityRepository.save(publication);
+    }
+
+    public PublicationEntity rejectPublication(UUID publicationId) {
+        User user = userService.getCurrentUser();
+        // todo ұмытпа Админ тексеретін функция қосуды
+        PublicationEntity publication = publicationEntityRepository.findById(publicationId)
+                .orElseThrow(() -> new RuntimeException("Publication doesn't exist"));
+
+        publication.reject();
+        return publicationEntityRepository.save(publication);
+    }
 }

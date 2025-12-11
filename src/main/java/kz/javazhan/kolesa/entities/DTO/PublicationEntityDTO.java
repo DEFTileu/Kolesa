@@ -1,5 +1,6 @@
 package kz.javazhan.kolesa.entities.DTO;
 
+import kz.javazhan.kolesa.state.PublicationStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,8 @@ public class PublicationEntityDTO {
     private String Content;
     private SellerDTO author;
     private List<String> images;
-    private boolean published;
+    private PublicationStatus status;
+    private String statusMessage;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
     private String authorNotes;

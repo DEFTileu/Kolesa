@@ -1,8 +1,7 @@
 package kz.javazhan.kolesa.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import kz.javazhan.kolesa.state.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,9 +15,25 @@ import java.util.UUID;
 @Table(name = "publications")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class PublicationEntity implements PublicationI {
+
+    public PublicationEntity(UUID id, String title, String description, String content,
+                             LocalDateTime createdAt, Seller author, List<String> images,
+                             PublicationStatus status, PublicationState state) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.author = author;
+        this.images = images;
+        this.status = status != null ? status : PublicationStatus.DRAFT;
+        this.state = state;
+        if (this.state == null) {
+            initializeState();
+        }
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -44,7 +59,58 @@ public class PublicationEntity implements PublicationI {
     @ElementCollection
     private List<String> images;
 
-    private boolean published;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private PublicationStatus status = PublicationStatus.DRAFT;
+
+    @Transient
+    private PublicationState state;
+
+    @PostLoad
+    @PostPersist
+    private void initializeState() {
+        if (this.state == null) {
+            this.state = switch (this.status) {
+                case DRAFT -> new DraftState();
+                case UNDER_REVIEW -> new UnderReviewState();
+                case PUBLISHED -> new PublishedState();
+                case ARCHIVED -> new ArchivedState();
+            };
+        }
+    }
+
+    public boolean isPublished() {
+        return this.status == PublicationStatus.PUBLISHED;
+    }
+
+    public void publish() {
+        if (state == null) initializeState();
+        state.publish(this);
+    }
+
+    public void sendToReview() {
+        if (state == null) initializeState();
+        state.sendToReview(this);
+    }
+
+    public void archive() {
+        if (state == null) initializeState();
+        state.archive(this);
+    }
+
+    public void reject() {
+        if (state == null) initializeState();
+        state.reject(this);
+    }
+
+    public String getStatusMessage() {
+        if (state == null) initializeState();
+        return state.getStatusMessage();
+    }
+
+    public void setState(PublicationState state) {
+        this.state = state;
+    }
 
     @Override
     public String getTitle() {
@@ -80,8 +146,7 @@ public class PublicationEntity implements PublicationI {
         private LocalDateTime createdAt;
         private Seller author;
         private List<String> images;
-        private boolean published;
-
+        private PublicationStatus status = PublicationStatus.DRAFT;
 
         PublicationBuilder(){}
 
@@ -117,12 +182,15 @@ public class PublicationEntity implements PublicationI {
             this.images = images;
             return PublicationBuilder.this;
         }
-        public PublicationBuilder published(boolean published) {
-            this.published = published;
+        public PublicationBuilder status(PublicationStatus status) {
+            this.status = status;
             return PublicationBuilder.this;
         }
+
         public PublicationEntity build() {
-            return new PublicationEntity(id, title, description, content, createdAt, author, images, published);
+            PublicationEntity entity = new PublicationEntity(id, title, description, content, createdAt, author, images, status, null);
+            entity.initializeState();
+            return entity;
         }
     }
 
