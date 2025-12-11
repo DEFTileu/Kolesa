@@ -10,11 +10,14 @@ import kz.javazhan.kolesa.entities.PublicationI;
 import kz.javazhan.kolesa.entities.Seller;
 import kz.javazhan.kolesa.entities.User;
 import kz.javazhan.kolesa.entities.enums.UserRole;
+import kz.javazhan.kolesa.iterators.PublicationFilterType;
+import kz.javazhan.kolesa.iterators.PublicationIterator;
 import kz.javazhan.kolesa.repositories.PublicationEntityRepository;
 import kz.javazhan.kolesa.repositories.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -80,6 +83,26 @@ public class SellerService {
         user.setRole(UserRole.ROLE_SELLER);
         userService.save(user);
         return sellerRepository.save(seller);
+    }
+
+    // Iterator pattern
+    public List<PublicationEntity> getPublicationsByFilter(User user, PublicationFilterType filterType) {
+        Seller seller = sellerRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Seller not found!"));
+
+        PublicationIterator iterator = seller.createIterator(filterType);
+        List<PublicationEntity> filteredPublications = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            filteredPublications.add(iterator.next());
+        }
+
+        return filteredPublications;
+    }
+
+    public Seller getSellerByUser(User user) {
+        return sellerRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Seller not found!"));
     }
 }
 

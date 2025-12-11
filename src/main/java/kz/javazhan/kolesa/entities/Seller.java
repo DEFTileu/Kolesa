@@ -1,6 +1,7 @@
 package kz.javazhan.kolesa.entities;
 
 import jakarta.persistence.*;
+import kz.javazhan.kolesa.iterators.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -72,6 +73,18 @@ public class Seller {
         return Objects.hash(id, createdAt);
     }
 
+    public PublicationIterator createIterator(PublicationFilterType filterType) {
+        switch (filterType) {
+            case ALL:
+                return new AllPublicationsIterator(publications);
+            case PUBLISHED:
+                return new PublishedPublicationsIterator(publications);
+            case UNPUBLISHED:
+                return new UnpublishedPublicationsIterator(publications);
+            default:
+                return new AllPublicationsIterator(publications);
+        }
+    }
 
     public static SellerBuilder builder() {
         return new SellerBuilder();

@@ -1,7 +1,6 @@
 package kz.javazhan.kolesa.entities.DTO.responses;
 
 import kz.javazhan.kolesa.entities.DTO.UserDTO;
-import lombok.Builder;
 import lombok.Data;
 
 
