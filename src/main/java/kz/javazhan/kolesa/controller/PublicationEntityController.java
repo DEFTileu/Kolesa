@@ -40,6 +40,12 @@ class PublicationEntityController {
                 .toList();
     }
 
+    @PutMapping("/{publicationId}")
+    public PublicationEntityDTO editPublication(@PathVariable UUID publicationId, @RequestBody PublicationEntity publicationDetails, @AuthenticationPrincipal User user) {
+        return publicationMapper.toPublicationEntityDTO(publicationService.editPublication(publicationId, publicationDetails, user));
+
+    }
+
     @GetMapping("/my")
     public List<PublicationEntityDTO> getPublications(@AuthenticationPrincipal User user){
         return publicationService.getPublicationsByUser(user).stream()

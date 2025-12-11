@@ -121,4 +121,15 @@ public class PublicationEntityService {
         publication.reject();
         return publicationEntityRepository.save(publication);
     }
+
+    public PublicationEntity editPublication(UUID publicationId, PublicationEntity publicationDetails, User user) {
+        PublicationEntity publication = getPublicationById(publicationId);
+
+        publication.setTitle(publicationDetails.getTitle());
+        publication.setDescription(publicationDetails.getDescription());
+        publication.setContent(publicationDetails.getContent());
+        publication.setImages(publicationDetails.getImages());
+
+        return save(publication, publication.getAuthor().getUser());
+    }
 }
