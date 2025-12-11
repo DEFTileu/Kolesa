@@ -30,8 +30,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "instance_id")
-    private static User instance;
+
+//    Bakosh's произведение
+//    @Column(name = "instance_id")
+//    private static boolean instance = false;
 
     @Column(nullable = false,unique = true)
     private String username;
@@ -55,12 +57,18 @@ public class User implements UserDetails {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    public static User getInstance(){
-        if(instance == null){
-            instance = new User();
-        }
-        return instance;
-    }
+// тут тоже
+//    public static boolean getInstance(){
+//        boolean current = instance;
+//        if (instance){
+//            return instance;
+//        }
+//        instance = !instance ? true : false;
+//        return current;
+//    }
+
+
+
 
 
     @LastModifiedDate

@@ -37,21 +37,11 @@ public class AuthService {
         Optional<User> existingUserOpt = userService.findByUsername(request.getUsername());
 
 
-//        if (existingUserOpt.isPresent()){
-//            throw new RuntimeException("User with this email "+ request.getUsername() + "already exists. Please Log in");
-
-//            User user = existingUserOpt.get();
-//
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//            userService.save(user);
-//        }
-        //Singleton pattern
-        User user = User.getInstance();
-        if(user.getInstance() != null) {
+        if (existingUserOpt.isPresent()) {
             throw new RuntimeException("User with this email " + request.getUsername() + "already exists. Please Log in");
         }
 
-        user = User.builder()
+        User user1 = User.builder()
                     .username(request.getUsername())
                     .firstName(request.getFirstName())
                     .lastName(request.getLastName())
@@ -59,20 +49,19 @@ public class AuthService {
                     .role(UserRole.ROLE_USER)
                     .build();
 
+        user1 = userService.save(user1);
 
-
-        user = userService.save(user);
-
-        String accessToken = jwtUtils.generateToken(user.getUsername());
-        String refreshTokenStr = jwtUtils.generateRefreshToken(user.getUsername());
+        String accessToken = jwtUtils.generateToken(user1.getUsername());
+        String refreshTokenStr = jwtUtils.generateRefreshToken(user1.getUsername());
 
 
         return AuthResponse.builder()
-                .user(userMapper.toUserDTO(user))
+                .user(userMapper.toUserDTO(user1))
                 .accessToken(accessToken)
                 .refreshToken(refreshTokenStr)
                 .build();
     }
+
 
     public AuthResponse login(AuthRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
