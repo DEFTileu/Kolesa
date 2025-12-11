@@ -37,15 +37,19 @@ public class AuthService {
         Optional<User> existingUserOpt = userService.findByUsername(request.getUsername());
 
 
-        if (existingUserOpt.isPresent()){
-            throw new RuntimeException("User with this email "+ request.getUsername() + "already exists. Please Log in");
+//        if (existingUserOpt.isPresent()){
+//            throw new RuntimeException("User with this email "+ request.getUsername() + "already exists. Please Log in");
+
 //            User user = existingUserOpt.get();
 //
 //            user.setPassword(passwordEncoder.encode(user.getPassword()));
 //            userService.save(user);
-        }
+//        }
         //Singleton pattern
         User user = User.getInstance();
+        if(user.getInstance() != null) {
+            throw new RuntimeException("User with this email " + request.getUsername() + "already exists. Please Log in");
+        }
 
         user = User.builder()
                     .username(request.getUsername())
