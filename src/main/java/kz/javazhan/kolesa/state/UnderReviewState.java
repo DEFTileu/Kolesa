@@ -5,11 +5,6 @@ import kz.javazhan.kolesa.entities.PublicationEntity;
 public class UnderReviewState implements PublicationState {
 
     @Override
-    public PublicationStatus getStatus() {
-        return PublicationStatus.UNDER_REVIEW;
-    }
-
-    @Override
     public void publish(PublicationEntity publication) {
         publication.setStatus(PublicationStatus.PUBLISHED);
         publication.setState(new PublishedState());

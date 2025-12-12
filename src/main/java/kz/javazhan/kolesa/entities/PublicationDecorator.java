@@ -30,5 +30,10 @@ public class PublicationDecorator implements PublicationI{
         return publication.getCreatedAt();
     }
 
+    @Override
+    public PublicationI clone() {
+        return publication.clone();
+    }
+
 
 }

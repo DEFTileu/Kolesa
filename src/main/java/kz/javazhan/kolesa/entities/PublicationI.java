@@ -8,4 +8,5 @@ public interface PublicationI {
     String getDescription();
     String getContent();
     LocalDateTime getCreatedAt();
+    PublicationI clone();
 }

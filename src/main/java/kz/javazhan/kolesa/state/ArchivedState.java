@@ -3,12 +3,6 @@ package kz.javazhan.kolesa.state;
 import kz.javazhan.kolesa.entities.PublicationEntity;
 
 public class ArchivedState implements PublicationState {
-
-    @Override
-    public PublicationStatus getStatus() {
-        return PublicationStatus.ARCHIVED;
-    }
-
     @Override
     public void publish(PublicationEntity publication) {
         throw new IllegalStateException("Нельзя опубликовать архивированную публикацию. Сначала отправьте на модерацию.");

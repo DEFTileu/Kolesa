@@ -1,7 +1,6 @@
 package kz.javazhan.kolesa.entities.DTO.responses;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

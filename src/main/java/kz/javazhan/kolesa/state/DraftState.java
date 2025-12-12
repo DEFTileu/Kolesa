@@ -5,11 +5,6 @@ import kz.javazhan.kolesa.entities.PublicationEntity;
 public class DraftState implements PublicationState {
 
     @Override
-    public PublicationStatus getStatus() {
-        return PublicationStatus.DRAFT;
-    }
-
-    @Override
     public void publish(PublicationEntity publication) {
         throw new IllegalStateException("Нельзя опубликовать черновик напрямую. Сначала отправьте на модерацию.");
     }

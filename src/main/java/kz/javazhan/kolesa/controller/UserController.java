@@ -28,24 +28,19 @@ class UserController {
                 .map(userMapper::toUserDTO)
                 .toList();
     }
-
     @GetMapping("/profile")
     public UserDTO profile() throws Exception {
         return userMapper.toUserDTO(authService.getCurrentUser());
     }
-
     @PutMapping("/profile")
     public UserDTO profile(@RequestBody User user) throws Exception {
         return userMapper.toUserDTO(userService.editProfile(user));
     }
-
-
     @PostMapping("/to-sell")
     public boolean request2sell() throws Exception {
         User user = userService.getCurrentUser();
         Seller seller =  sellerService.createSeller(user);
         return true;
     }
-
 }
 

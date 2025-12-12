@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -132,11 +133,28 @@ public class PublicationEntity implements PublicationI {
         return createdAt;
     }
 
+    @Override
+    public PublicationEntity clone() {
+        try {
+            PublicationEntity cloned = (PublicationEntity) super.clone();
+            cloned.id = null;
+            cloned.createdAt = null;
+            cloned.status = PublicationStatus.DRAFT;
+            cloned.state = new DraftState();
+
+            if (this.images != null) {
+                cloned.images = new ArrayList<>(this.images);
+            }
+
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Failed to clone publication", e);
+        }
+    }
 
     public static PublicationBuilder builder() {
         return new PublicationBuilder();
     }
-
 
     public static class PublicationBuilder{
         private UUID id;
@@ -147,8 +165,6 @@ public class PublicationEntity implements PublicationI {
         private Seller author;
         private List<String> images;
         private PublicationStatus status = PublicationStatus.DRAFT;
-
-        PublicationBuilder(){}
 
         public static PublicationBuilder builder() {
             return new PublicationBuilder();

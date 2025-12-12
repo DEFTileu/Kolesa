@@ -17,12 +17,15 @@ import java.util.UUID;
 
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor  // Dependency injection үшін
 public class PublicationEntityService {
+
+
     private final PublicationEntityRepository publicationEntityRepository;
     private final SellerRepository sellerRepository;
-    private final PublicationEntityMapper publicationMapper;
     private final UserService userService;
+
+
 
 
     public List<PublicationEntity> getPublishedPublications() {
@@ -131,5 +134,23 @@ public class PublicationEntityService {
         publication.setImages(publicationDetails.getImages());
 
         return save(publication, publication.getAuthor().getUser());
+    }
+
+    public PublicationEntity clonePublication(UUID publicationId, User user) {
+        PublicationEntity originalPublication = getPublicationById(publicationId);
+        Seller seller = sellerRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Seller not Found"));
+
+        if (!originalPublication.getAuthor().getId().equals(seller.getId()) &&
+            originalPublication.getStatus() != PublicationStatus.PUBLISHED) {
+            throw new RuntimeException("You can only clone your own publications or published publications");
+        }
+
+        PublicationEntity clonedPublication = originalPublication.clone();
+
+        clonedPublication.setTitle(originalPublication.getTitle() + " (Копия)");
+
+        clonedPublication.setAuthor(seller);
+
+        return publicationEntityRepository.save(clonedPublication);
     }
 }

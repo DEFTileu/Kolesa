@@ -38,8 +38,8 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**","/api/files/upload-to-project","/api/users").permitAll()
-                        .requestMatchers("/uploads/avatars/**").permitAll()
+                        .requestMatchers("/api/auth/**","/api/files/upload-to-project","/api/users","/documentation","/swagger-ui.html","/","/swagger-ui/**","/v3/api-docs/**").permitAll()
+                        .requestMatchers("/uploads/avatars/**").authenticated()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // todo если админге кіре алмасақ бір себебі осы "ROLE_ADMIN"
                         .anyRequest().authenticated()
                 )

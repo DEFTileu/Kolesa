@@ -3,12 +3,6 @@ package kz.javazhan.kolesa.state;
 import kz.javazhan.kolesa.entities.PublicationEntity;
 
 public class PublishedState implements PublicationState {
-
-    @Override
-    public PublicationStatus getStatus() {
-        return PublicationStatus.PUBLISHED;
-    }
-
     @Override
     public void publish(PublicationEntity publication) {
         throw new IllegalStateException("Публикация уже опубликована.");

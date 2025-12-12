@@ -1,6 +1,7 @@
 package kz.javazhan.kolesa.controller;
 
 import kz.javazhan.kolesa.entities.DTO.PublicationEntityDTO;
+import kz.javazhan.kolesa.entities.DTO.requests.ClonePublicationRequest;
 import kz.javazhan.kolesa.entities.PublicationEntity;
 import kz.javazhan.kolesa.entities.User;
 import kz.javazhan.kolesa.iterators.PublicationFilterType;
@@ -121,4 +122,21 @@ class PublicationEntityController {
         );
     }
 
+    @PostMapping("/{publicationId}/clone")
+    public PublicationEntityDTO clonePublication(
+            @PathVariable UUID publicationId,
+            @AuthenticationPrincipal User user,
+            @RequestBody(required = false) ClonePublicationRequest request) {
+
+        if (request == null) {
+            request = new ClonePublicationRequest();
+        }
+
+        PublicationEntity clonedPublication = publicationService.clonePublication(
+            publicationId,
+            user
+        );
+
+        return publicationMapper.toPublicationEntityDTO(clonedPublication);
+    }
 }

@@ -11,4 +11,9 @@ class WebController {
     public String mainPage(){
         return "index";
     }
+
+    @GetMapping("/documentation")
+    public String docPage(){
+        return "documentation";
+    }
 }
