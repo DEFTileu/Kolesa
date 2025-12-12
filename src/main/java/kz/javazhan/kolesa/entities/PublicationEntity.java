@@ -17,7 +17,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class PublicationEntity implements PublicationI {
+public class PublicationEntity implements PublicationI, Cloneable {
 
     public PublicationEntity(UUID id, String title, String description, String content,
                              LocalDateTime createdAt, Seller author, List<String> images,

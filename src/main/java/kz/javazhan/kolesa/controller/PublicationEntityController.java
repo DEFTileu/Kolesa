@@ -128,10 +128,6 @@ class PublicationEntityController {
             @AuthenticationPrincipal User user,
             @RequestBody(required = false) ClonePublicationRequest request) {
 
-        if (request == null) {
-            request = new ClonePublicationRequest();
-        }
-
         PublicationEntity clonedPublication = publicationService.clonePublication(
             publicationId,
             user
